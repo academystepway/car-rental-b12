@@ -55,6 +55,16 @@ public class CustomerDAO extends BaseDAO implements ICrud<Customer>{
         }
     }
 
+    public List<Customer> getByName(String name) {
+        try {
+            PreparedStatement ps = conn.prepareStatement("select * from customer where c_name like '%"+name+"%'");
+            ResultSet rs = ps.executeQuery();
+            return customerMapper.resultSetToList(rs);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     @Override
     public void update(Customer obj, Long id) {
         try {

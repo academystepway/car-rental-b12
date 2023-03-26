@@ -1,10 +1,18 @@
 package org.carrental.ui;
 
+import org.carrental.service.CustomerService;
+
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 public class CustomerPanelUi {
 
+
+
+    private final CustomerService customerService = new CustomerService();
 
     public CustomerPanelUi(){
         JFrame frame = new JFrame("Car Rental APP - Customer Panel");
@@ -14,12 +22,17 @@ public class CustomerPanelUi {
         tblAndSearchPanel.setLayout(new FlowLayout(FlowLayout.LEFT,10,10));
         JTextField searchTf = new JTextField(30);
 
-        String data[][]={ {"101","Amit","670000"},
-                {"102","Jai","780000"},
-                {"101","Sachin","700000"}};
-        String column[]={"ID","NAME","SALARY"};
-        JTable jt=new JTable(data,column);
-        jt.setBounds(30,40,200,300);
+
+
+        String[][] data = customerService.getAllCustomerForJTable();
+
+
+        String column[]={"NAME","PHONE_NUMBER","CNIC","ADDRESS","REF_PH_NO"};
+
+
+        DefaultTableModel dtm = new DefaultTableModel(data,column);
+        JTable jt=new JTable(dtm);
+       // jt.setBounds(30,40,200,300);
         JScrollPane sp=new JScrollPane(jt);
 
         tblAndSearchPanel.add(searchTf);
@@ -38,7 +51,30 @@ public class CustomerPanelUi {
         actionButtonPanel.add(deleteCustomerButton);
         actionButtonPanel.add(back);
 
+        addCustomerButton.addActionListener(e->{
+            frame.dispose();
+            new AddCustomerUI();
+        });
 
+
+        searchTf.addKeyListener(new KeyListener() {
+
+            @Override
+            public void keyTyped(KeyEvent e) {
+
+            }
+            @Override
+            public void keyPressed(KeyEvent e) {
+
+            }
+            @Override
+            public void keyReleased(KeyEvent e) {
+                String[][] data =  customerService.searchByName(searchTf.getText());
+                DefaultTableModel dtm = new DefaultTableModel(data,column);
+                jt.setModel(dtm);
+
+            }
+        });
 
 
 

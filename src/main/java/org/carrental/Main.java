@@ -7,7 +7,7 @@ import org.carrental.ui.LoginUI;
 
 public class Main {
     public static void main(String[] args) {
-       new LoginUI();
+        new LoginUI();
         //new HomeUi();
         //System.out.println("Hello stepway");
 

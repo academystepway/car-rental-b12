@@ -5,9 +5,6 @@ import java.awt.*;
 
 public class HomeUi {
 
-    public static void main(String[] args) {
-        new HomeUi();
-    }
     public HomeUi(){
         JFrame frame = new JFrame("Car Rental APP - HOME");
 
@@ -52,6 +49,5 @@ public class HomeUi {
         ImageIcon imageIcon = new ImageIcon(imagePath);
         Image newImage = imageIcon.getImage().getScaledInstance(width,height,Image.SCALE_SMOOTH);
         button.setIcon(new ImageIcon(newImage));
-
     }
 }
